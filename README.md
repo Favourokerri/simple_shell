@@ -1,1 +1,1 @@
-A simple linux shell 
+shellby - Simple Shell 🐚
