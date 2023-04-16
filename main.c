@@ -2,27 +2,24 @@
 
 /**
  * main - entry point
- *
- * Return: Always 0
+ * @argc: command line arguement
+ * @argv: command line arguement
+ * Return: always 0
  */
 
-int main() {
-    char *input;
+int main(int argc, char *argv[])
+{
+	int func_ret = 0;
 
-    char **arguments;
+	int retn;
 
-    while (1) 
-    {
-       printf("#cisfun$ ");
-       input  = read_command();
-       if(input == NULL)
-       {
-	       printf("exiting the shell\n");
-		       return (-1);
-       }
-	input[strcspn(input, "\n")] = '\0';
-       	printf("%s\n", input);
-        free(input);
-    }
-    return 0;
+	int *ptr_retn = &retn;
+
+	char *prompt = "~s ";
+
+	char *newline = "\n";
+
+	signal(SIGINT, sig_handler);
+
+	return (0);
 }
