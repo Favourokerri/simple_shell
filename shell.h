@@ -16,10 +16,10 @@ extern char **environ;
 
 /* Global program name */
 
-char *name;
+extern char *name;
 /* Global history counter */
 
-int hist;
+extern int hist;
 
 #define MAX_COMMAND_LENGTH 100
 
@@ -37,6 +37,8 @@ void sig_handler(int sig);
 
 /* environ functions */
 int _env(char **arguments, char __attribute__((__unused__)) **unused_para);
-
+int _setenv(char **args, char __attribute__((__unused__)) **unused_para);
+char **_getenv(const char *s);
+int _unsetenv(char **arguments, char __attribute__((__unused__)) **para);
 
 #endif /* SHELL_H */
