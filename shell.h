@@ -19,7 +19,7 @@ extern char **environ;
 extern char *name;
 /* Global history counter */
 
-extern int hist;
+extern int history_count;
 
 #define MAX_COMMAND_LENGTH 100
 
@@ -40,5 +40,21 @@ int _env(char **arguments, char __attribute__((__unused__)) **unused_para);
 int _setenv(char **args, char __attribute__((__unused__)) **unused_para);
 char **_getenv(const char *s);
 int _unsetenv(char **arguments, char __attribute__((__unused__)) **para);
+char **_copyenv(void);
+void free_env(void);
+
+/* environ errors */
+char *env_error_message(char **args);
+
+/* atio function && itoa */
+int num_len(int num);
+char *_itoa(int num);
+int _atoi(char *s);
+void reverse(const char *str);
+
+/* errors and error messages */
+int create_error(char **args, int err);
+int create_error2(char **args, int err);
+
 
 #endif /* SHELL_H */
