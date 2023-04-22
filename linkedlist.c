@@ -1,108 +1,99 @@
 #include "shell.h"
 
 /**
- * add_alias_end - Adds a node to the end of a alias_t linked list.
- * @head: A pointer to the head of the list_t list.
- * @name: The name of the new alias to be added.
- * @value: The value of the new alias to be added.
+ * create_linkedt - creates empty linked list the size of the path variable
+ * @path_var: PATH variable name
  *
- * Return: If an error occurs - NULL.
- *         Otherwise - a pointer to the new node.
+ * Return: a pointer to the empty linked list
  */
-alias_t *add_alias_end(alias_t **head, char *name, char *value)
+linked_t *create_linkedt(char *path_var)
 {
-	alias_t *new_node = malloc(sizeof(alias_t));
-	alias_t *last;
+	int i = 0;
+	int num_nodes = 1;
+	linked_t *current_node, *list_head, *prev_node, *list_end;
 
-	if (!new_node)
+	prev_node = malloc(sizeof(linked_t));
+
+	if (prev_node == NULL)
 		return (NULL);
+	list_head = prev_node;
 
-	new_node->next = NULL;
-	new_node->name = malloc(sizeof(char) * (_strlen(name) + 1));
-	if (!new_node->name)
+	list_end = malloc(sizeof(linked_t));
+	if (list_end == NULL)
 	{
-		free(new_node);
+		free(prev_node);
 		return (NULL);
 	}
-	new_node->value = value;
-	_strcpy(new_node->name, name);
+	list_end->next = NULL;
 
-	if (*head)
+	while (path_var[i] != '\0')
 	{
-		last = *head;
-		while (last->next != NULL)
-			last = last->next;
-		last->next = new_node;
+		if (path_var[i] == ':')
+			num_nodes++;
+		i++;
 	}
-	else
-		*head = new_node;
 
-	return (new_node);
+	while ((num_nodes - 2) > 0)
+	{
+		current_node = malloc(sizeof(linked_t));
+	if (current_node == NULL)
+	{
+		free(prev_node);
+		free(list_end);
+		return (NULL);
+	}
+	prev_node->next = current_node;
+	prev_node = prev_node->next;
+	num_nodes--;
+	}
+	prev_node->next = list_end;
+	return (list_head);
 }
 
 /**
- * add_node_end - Adds a node to the end of a list_t linked list.
- * @head: A pointer to the head of the list_t list.
- * @dir: The directory path for the new node to contain.
- *
- * Return: If an error occurs - NULL.
- *         Otherwise - a pointer to the new node.
+ * addnodes_list - add PATH variable contents to empty
+ * @new_str: PATH variable name
+ * @new_list: pointer to the empty linked list
+ * Return: pointer to the resultant linked list
  */
-list_t *add_node_end(list_t **head, char *dir)
-{
-	list_t *new_node = malloc(sizeof(list_t));
-	list_t *last;
 
-	if (!new_node)
+linked_t *addnodes_list(char *new_str, linked_t *new_list)
+{
+	linked_t *new_ptr, *new_head;
+	char *new_dir;
+	int new_i = 0, new_j = 0, new_stcnt = 0, new_dirlen = 0;
+
+	if (new_str ==  NULL || new_list == NULL)
 		return (NULL);
-
-	new_node->dir = dir;
-	new_node->next = NULL;
-
-	if (*head)
+	new_head = new_list;
+	new_ptr = new_head;
+	while (new_ptr != NULL)
 	{
-		last = *head;
-		while (last->next != NULL)
-			last = last->next;
-		last->next = new_node;
+		if (new_str[new_i] == ':' || new_str[new_i] == '\0')
+		{
+			if (new_str[new_i] != '\0')
+				new_i++;
+			new_dir = malloc(sizeof(char) * new_dirlen + 2);
+			if (new_dir == NULL)
+				return (NULL);
+			while (new_str[new_stcnt] != ':' && new_str[new_stcnt] != '\0')
+			{
+				new_dir[new_j] = new_str[new_stcnt];
+				new_stcnt++;
+				new_j++;
+			}
+			new_dir[new_j++] = '/';
+			new_dir[new_j] = '\0';
+			new_stcnt = new_i;
+			new_j = 0;
+			new_ptr->directory = new_dir;
+			new_ptr = new_ptr->next;
+		}
+		else
+		{
+			new_dirlen++;
+			new_i++;
+		}
 	}
-	else
-		*head = new_node;
-
-	return (new_node);
-}
-
-/**
- * free_alias_list - Frees a alias_t linked list.
- * @head: THe head of the alias_t list.
- */
-void free_alias_list(alias_t *head)
-{
-	alias_t *next;
-
-	while (head)
-	{
-		next = head->next;
-		free(head->name);
-		free(head->value);
-		free(head);
-		head = next;
-	}
-}
-
-/**
- * free_list - Frees a list_t linked list.
- * @head: The head of the list_t list.
- */
-void free_list(list_t *head)
-{
-	list_t *next;
-
-	while (head)
-	{
-		next = head->next;
-		free(head->dir);
-		free(head);
-		head = next;
-	}
+	return (new_head);
 }

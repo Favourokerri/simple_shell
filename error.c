@@ -1,52 +1,27 @@
 #include "shell.h"
 
 /**
- * create_error - Writes a custom error message to stderr.
- * @args: An array of arguments.
- * @err: The error value.
- *
- * Return: The error value.
+ * error_handler - writes an error message if command is not found
+ * @argv: the array of passed in function argument strings
+ * @tokens: array of tokens entered by the user
+ * @cmdcount: the number of commands entered
+ * @line: user input
+ * @trimmed: user input without the newline character
  */
-int create_error(char **args, int err)
+void error_handler(char **argv, char **tokens, int cmdcount, char *line,
+			char *trimmed)
 {
-	char *error;
+	char *count_str;
 
-	if (err == -1)
-	{
-		error = env_error(args);
-	}
-	else if (err == 1)
-	{
-		error = error_1(args);
-	}
-	else if (err == 2)
-	{
-		if (*(args[0]) == 'e')
-		{
-			error = error_2_exit(++args);
-		}
-		else if (args[0][0] == ';' || args[0][0] == '&' || args[0][0] == '|')
-		{
-			error = error_2_syntax(args);
-		}
-		else
-		{
-			error = error_2_cd(args);
-		}
-	}
-	else if (err == 126)
-	{
-		error = error_126(args);
-	}
-
-	else if (err == 127)
-	{
-		error = error_127(args);
-	}
-	if (error)
-	{
-		write(STDERR_FILENO, error, _strlen(error));
-		free(error);
-	}
-	return (err);
+	count_str = print_int(cmdcount);
+	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, count_str, _strlen(count_str));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, "command not found\n", 18);
+	free(count_str);
+	free_all(line, trimmed, tokens);
+	exit(0);
 }
