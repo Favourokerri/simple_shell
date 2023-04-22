@@ -36,6 +36,12 @@ char *_strcpy(char *dest, const char *src)
 	return (dest);
 }
 
+/**
+ * _strcat - concatinate two strings
+ * @destination: first string
+ * @source: second string
+ *Return: the concatinated string
+ */
 char *_strcat(char *destination, const char *source)
 {
 	char *dest_ptr;

@@ -19,6 +19,8 @@ int main(int argc, char *argv[])
 
 	char *newline = "\n";
 
+	name = argv[0];
+	history_count = 1;
 	signal(SIGINT, sig_handler);
 
 	return (0);

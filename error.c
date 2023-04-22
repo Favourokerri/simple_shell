@@ -13,7 +13,7 @@ int create_error(char **args, int err)
 
 	if (err == -1)
 	{
-		error = error_env(args);
+		error = env_error(args);
 	}
 	else if (err == 1)
 	{
@@ -34,6 +34,19 @@ int create_error(char **args, int err)
 			error = error_2_cd(args);
 		}
 	}
+	else if (err == 126)
+	{
+		error = error_126(args);
+	}
 
+	else if (err == 127)
+	{
+		error = error_127(args);
+	}
+	if (error)
+	{
+		write(STDERR_FILENO, error, _strlen(error));
+		free(error);
+	}
 	return (err);
 }
