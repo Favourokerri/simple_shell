@@ -3,7 +3,7 @@
 /**
  * _putchar - write character c to stdout
  * @c: char to print
- * Return: 1 on success
+ * Return: 1 on success.
  *
  */
 
