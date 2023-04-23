@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <limits.h>
+#define DELIMITERS " \t\0"
 
 /**
  * struct path_s - linked list structure for PATH variable

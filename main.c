@@ -1,5 +1,4 @@
 #include "shell.h"
-#define DELIMITERS " \t\0"
 
 /**
  * main - entry point
