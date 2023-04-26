@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _cd - change current working directory
+ * cd_handler - change current working directory
  * @array: array of arguments
  * @env: array of environment variables
  *
