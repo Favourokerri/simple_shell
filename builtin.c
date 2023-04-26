@@ -38,7 +38,7 @@ int exit_handler(char **array, char *line, char *newline, int cmd_count)
 			return (0);
 		}
 		free_all(line, newline, array);
-		_exit(num);
+		exit(num);
 	}
 }
 
