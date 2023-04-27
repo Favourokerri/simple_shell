@@ -48,6 +48,7 @@ int execute_cmd(char **ar, char **env, char **av, char *line, char *nline,
 char *_strdup(char *str);
 char *_concatenate(char *concat, char *s1, char *s2);
 int _strlen(char *s);
+char *_strcpy(char *dest, const char *src);
 char *_strconcat(char *s1, char *s2);
 int _strcmp(char *str1, char *str2);
 
@@ -75,4 +76,8 @@ void free_list(linked_t *head);
 void free_tokens(char **t_array);
 void free_all(char *line, char *newline, char **t_array);
 
+/* get line */
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
+void *__realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 #endif /* SHELL_H */
