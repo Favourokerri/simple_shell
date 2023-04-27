@@ -24,7 +24,7 @@ int main(int ac, char **av, char **env)
 		if (isatty(STDIN_FILENO) == 1)
 			shellPrompt();
 		signal(SIGINT, ctrlc_handler);
-		lineSize = _getline(&line, &len, stdin);
+		lineSize = getline(&line, &len, stdin);
 		if (lineSize == EOF || lineSize == -1)
 			return (ctrld_handler(line));
 		if (line[0] == '\n')

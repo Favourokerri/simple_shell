@@ -76,8 +76,4 @@ void free_list(linked_t *head);
 void free_tokens(char **t_array);
 void free_all(char *line, char *newline, char **t_array);
 
-/* get line */
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
-void *__realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 #endif /* SHELL_H */
