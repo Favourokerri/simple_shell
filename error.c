@@ -16,6 +16,10 @@ void error_handler(char **argv, char **tokens, int cmdcount, char *line,
 	count_str = print_int(cmdcount);
 	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
 	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, count_str, _strlen(count_str));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
+	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, "No such file or directory\n", 27);
 	free(count_str);
 	free_all(line, trimmed, tokens);
